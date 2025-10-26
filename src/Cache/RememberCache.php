@@ -6,8 +6,13 @@ namespace Akira\Packagist\Cache;
 
 final class RememberCache extends BaseCache
 {
-    public function get(string $key, callable $callback, int $ttl = 0, ?string $action = null): mixed
-    {
+    public function get(
+        string $key,
+        callable $callback,
+        int $ttl = 0,
+        ?string $action = null,
+        ?string $endpoint = null
+    ): mixed {
         $resolvedTtl = $this->resolveTtl($ttl);
 
         return $this->store->remember(

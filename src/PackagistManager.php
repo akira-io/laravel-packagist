@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Akira\Packagist;
 
+use Akira\Packagist\Actions\GetAllPackagesAction;
 use Akira\Packagist\Actions\GetMaintainersAction;
 use Akira\Packagist\Actions\GetPackageAction;
 use Akira\Packagist\Actions\GetStatsAction;
+use Akira\Packagist\Actions\GetTopPackagesAction;
 use Akira\Packagist\Actions\SearchPackagesAction;
 use Akira\Packagist\Client\PackagistClient;
 use Akira\Packagist\Contracts\CacheContract;
@@ -95,6 +97,22 @@ final class PackagistManager
     public function maintainers(string $package): array
     {
         return new GetMaintainersAction($this->client, $this->cache)->handle($package);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function packages(): array
+    {
+        return new GetAllPackagesAction($this->client, $this->cache)->handle();
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function topPackages(int $limit = 9): array
+    {
+        return new GetTopPackagesAction($this->client, $this->cache)->handle($limit);
     }
 
     public function withClient(ClientContract $client): self

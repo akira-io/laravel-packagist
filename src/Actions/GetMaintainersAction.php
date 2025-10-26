@@ -6,13 +6,14 @@ namespace Akira\Packagist\Actions;
 
 use Akira\Packagist\Contracts\CacheContract;
 use Akira\Packagist\Contracts\ClientContract;
+use Akira\Packagist\Support\Endpoints;
 use Akira\Packagist\Validators\PackageValidator;
 
-final class GetMaintainersAction
+final readonly class GetMaintainersAction
 {
     public function __construct(
-        private readonly ClientContract $client,
-        private readonly CacheContract $cache,
+        private ClientContract $client,
+        private CacheContract $cache,
     ) {}
 
     /**
@@ -23,11 +24,13 @@ final class GetMaintainersAction
         PackageValidator::validateOrFail($package);
 
         $cacheKey = "packagist:maintainers:{$package}";
+        $endpoint = Endpoints::package($package);
 
         $data = $this->cache->get(
             $cacheKey,
-            fn () => $this->client->get("/packages/{$package}.json"),
-            action: self::class
+            fn () => $this->client->get($endpoint),
+            action: self::class,
+            endpoint: $endpoint
         );
 
         return $data['package']['maintainers'] ?? [];

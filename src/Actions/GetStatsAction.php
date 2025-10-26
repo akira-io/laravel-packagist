@@ -6,13 +6,14 @@ namespace Akira\Packagist\Actions;
 
 use Akira\Packagist\Contracts\CacheContract;
 use Akira\Packagist\Contracts\ClientContract;
+use Akira\Packagist\Support\Endpoints;
 use Akira\Packagist\Validators\StatsValidator;
 
-final class GetStatsAction
+final readonly class GetStatsAction
 {
     public function __construct(
-        private readonly ClientContract $client,
-        private readonly CacheContract $cache,
+        private ClientContract $client,
+        private CacheContract $cache,
     ) {}
 
     /**
@@ -27,8 +28,9 @@ final class GetStatsAction
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->client->get('/stats.json'),
-            action: self::class
+            fn () => $this->client->get(Endpoints::stats()),
+            action: self::class,
+            endpoint: Endpoints::stats()
         );
     }
 }

@@ -6,8 +6,13 @@ namespace Akira\Packagist\Cache;
 
 final class NoneCache extends BaseCache
 {
-    public function get(string $key, callable $callback, int $ttl = 0, ?string $action = null): mixed
-    {
+    public function get(
+        string $key,
+        callable $callback,
+        int $ttl = 0,
+        ?string $action = null,
+        ?string $endpoint = null
+    ): mixed {
         return $callback();
     }
 }

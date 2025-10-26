@@ -6,8 +6,13 @@ namespace Akira\Packagist\Cache;
 
 final class RevalidateCache extends BaseCache
 {
-    public function get(string $key, callable $callback, int $ttl = 0, ?string $action = null): mixed
-    {
+    public function get(
+        string $key,
+        callable $callback,
+        int $ttl = 0,
+        ?string $action = null,
+        ?string $endpoint = null
+    ): mixed {
         $resolvedTtl = $this->resolveTtl($ttl);
 
         $result = $this->store->remember(
@@ -16,8 +21,8 @@ final class RevalidateCache extends BaseCache
             $callback
         );
 
-        if ($this->autoRevalidationEnabled && $resolvedTtl > 0) {
-            $this->scheduleRevalidation($key, '', [
+        if ($this->autoRevalidationEnabled && $resolvedTtl > 0 && $endpoint !== null) {
+            $this->scheduleRevalidation($key, $endpoint, [
                 'ttl' => $resolvedTtl,
                 'action' => $action,
             ]);

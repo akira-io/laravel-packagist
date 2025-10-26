@@ -7,9 +7,8 @@ namespace Akira\Packagist\Actions;
 use Akira\Packagist\Contracts\CacheContract;
 use Akira\Packagist\Contracts\ClientContract;
 use Akira\Packagist\Support\Endpoints;
-use Akira\Packagist\Validators\SearchValidator;
 
-final readonly class SearchPackagesAction
+final readonly class GetAllPackagesAction
 {
     public function __construct(
         private ClientContract $client,
@@ -17,20 +16,17 @@ final readonly class SearchPackagesAction
     ) {}
 
     /**
-     * @param  array<string, mixed>  $filters
      * @return array<string, mixed>
      */
-    public function handle(string $query, array $filters = []): array
+    public function handle(): array
     {
-        SearchValidator::validateOrFail($query, $filters);
-
-        $cacheKey = 'packagist:search:'.md5($query.json_encode($filters));
+        $cacheKey = 'packagist:all-packages';
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->client->search($query, $filters),
+            fn () => $this->client->get(Endpoints::allPackages()),
             action: self::class,
-            endpoint: Endpoints::search()
+            endpoint: Endpoints::allPackages()
         );
     }
 }
