@@ -62,10 +62,12 @@ use Akira\Packagist\Facades\Packagist;
 
 $package = Packagist::package('laravel/framework');
 
-echo $package->name;           // 'laravel/framework'
-echo $package->description;    // 'The Laravel Framework'
-echo $package->downloads;      // total downloads
-echo $package->favers;         // total favorites
+echo $package->name;                    // 'laravel/framework'
+echo $package->description;             // 'The Laravel Framework'
+echo $package->downloads['total'];      // total downloads
+echo $package->downloads['monthly'];    // monthly downloads
+echo $package->downloads['daily'];      // daily downloads
+echo $package->favers;                  // total favorites
 ```
 
 ### Search Packages
@@ -252,7 +254,7 @@ composer test:refactor
 - `maintainers: array<MaintainerDTO>`
 - `homepage: ?string`
 - `license: ?string`
-- `downloads: int`
+- `downloads: array` — Download statistics with `total`, `monthly`, `daily`
 - `favers: int`
 
 #### VersionDTO

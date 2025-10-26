@@ -44,7 +44,7 @@ class PackageDTO {
     public readonly array $maintainers;     // array<int, MaintainerDTO>
     public readonly string $homepage;       // Website URL
     public readonly string $license;        // License (MIT, etc.)
-    public readonly int $downloads;         // Total downloads
+    public readonly array $downloads;       // ['total' => int, 'monthly' => int, 'daily' => int]
     public readonly int $favers;            // Total favorites
 }
 ```
@@ -58,13 +58,15 @@ use Akira\Packagist\Facades\Packagist;
 $package = Packagist::package('laravel/framework');
 
 // Access properties
-echo $package->name;           // "laravel/framework"
-echo $package->description;    // "The Laravel Framework."
-echo $package->downloads;      // 9999999 (int)
-echo $package->favers;         // 50000 (int)
-echo $package->homepage;       // "https://laravel.com"
-echo $package->license;        // "MIT"
-echo $package->repository;     // "https://github.com/laravel/framework.git"
+echo $package->name;                    // "laravel/framework"
+echo $package->description;             // "The Laravel Framework."
+echo $package->downloads['total'];      // 9999999 (int)
+echo $package->downloads['monthly'];    // 50000 (int)
+echo $package->downloads['daily'];      // 1500 (int)
+echo $package->favers;                  // 50000 (int)
+echo $package->homepage;                // "https://laravel.com"
+echo $package->license;                 // "MIT"
+echo $package->repository;              // "https://github.com/laravel/framework.git"
 ```
 
 ### Working with Versions
@@ -171,7 +173,11 @@ public function show($vendor, $package)
     return view('package.show', [
         'name' => $pkg->name,
         'description' => $pkg->description,
-        'downloads' => number_format($pkg->downloads),
+        'downloads' => [
+            'total' => number_format($pkg->downloads['total']),
+            'monthly' => number_format($pkg->downloads['monthly']),
+            'daily' => number_format($pkg->downloads['daily']),
+        ],
         'favers' => number_format($pkg->favers),
         'license' => $pkg->license,
         'maintainers' => $pkg->maintainers,
@@ -185,8 +191,10 @@ public function show($vendor, $package)
 ```php
 $package = Packagist::package('laravel/framework');
 
-if ($package->downloads > 1_000_000) {
+if ($package->downloads['total'] > 1_000_000) {
     echo "Super popular package!";
+    echo "Monthly: {$package->downloads['monthly']}";
+    echo "Daily: {$package->downloads['daily']}";
 } elseif ($package->favers > 10_000) {
     echo "Well-liked by community";
 } else {
