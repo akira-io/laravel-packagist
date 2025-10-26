@@ -58,9 +58,24 @@ keywords : packagist, api, laravel, cache, php
 versions : * 1.0.0
 ```
 
-## Step 2: Publish Configuration File
+## Step 2: Run Installation Command
 
-Publish the configuration file to your application:
+The easiest way to set up Laravel Packagist is using the install command:
+
+```bash
+php artisan packagist:install
+```
+
+This command will:
+1. Publish configuration file to `config/packagist.php`
+2. Show environment variable setup instructions
+3. Explain queue configuration options
+4. Run optional installation tests
+5. Display next steps and quick start guide
+
+### Manual Configuration (Alternative)
+
+If you prefer to publish configuration manually:
 
 ```bash
 php artisan vendor:publish --provider="Akira\Packagist\Providers\PackagistServiceProvider"
@@ -69,19 +84,12 @@ php artisan vendor:publish --provider="Akira\Packagist\Providers\PackagistServic
 This creates:
 - `config/packagist.php` - Main configuration file
 
-### What Gets Published
-
-```
-config/
-└── packagist.php          # Configuration (default: use RevalidateCache with 8hr TTL)
-```
-
 ### Verify Configuration
 
 Check that the file was created:
 
 ```bash
-test -f config/packagist.php && echo " Config published" || echo " Config missing"
+test -f config/packagist.php && echo "Config published" || echo "Config missing"
 ```
 
 ## Step 3: (Optional) Set Up Queue for Auto-Revalidation
@@ -330,7 +338,10 @@ Now that installation is complete:
 # Install package
 composer require akira/laravel-packagist
 
-# Publish config
+# Run install command (recommended)
+php artisan packagist:install
+
+# Or manually publish config
 php artisan vendor:publish --provider="Akira\Packagist\Providers\PackagistServiceProvider"
 
 # Start queue (if using auto-revalidation)

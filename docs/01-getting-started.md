@@ -43,13 +43,13 @@ Laravel Packagist is a Laravel package that provides:
 composer require akira/laravel-packagist
 ```
 
-### 2. Publish Configuration
+### 2. Run Install Command
 
 ```bash
-php artisan vendor:publish --provider="Akira\Packagist\Providers\PackagistServiceProvider"
+php artisan packagist:install
 ```
 
-This creates `config/packagist.php` with sensible defaults.
+This command will automatically publish the configuration and show you next steps.
 
 ### 3. Basic Usage
 
