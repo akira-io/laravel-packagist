@@ -27,8 +27,8 @@ final class CacheFactory
     ];
 
     /**
-     * @param class-string<CacheContract>|string $strategy
-     * @param array<string, mixed> $config
+     * @param  class-string<CacheContract>|string  $strategy
+     * @param  array<string, mixed>  $config
      */
     public static function make(
         Factory $cacheFactory,
@@ -46,8 +46,7 @@ final class CacheFactory
     }
 
     /**
-     * @param class-string<CacheContract>|string $strategy
-     *
+     * @param  class-string<CacheContract>|string  $strategy
      * @return class-string<CacheContract>
      */
     private static function resolveStrategy(string $strategy): string

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Akira\Packagist\Validators;
 
-
 final class StatsValidator
 {
     /**
-     * @param array<string, mixed> $filters
+     * @param  array<string, mixed>  $filters
      */
     public static function validate(array $filters = []): bool
     {
@@ -22,7 +21,7 @@ final class StatsValidator
     }
 
     /**
-     * @param array<string, mixed> $filters
+     * @param  array<string, mixed>  $filters
      */
     public static function validateOrFail(array $filters = []): void
     {

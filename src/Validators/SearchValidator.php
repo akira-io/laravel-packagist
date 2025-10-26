@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Akira\Packagist\Validators;
 
-
 final class SearchValidator
 {
     /**
-     * @param array<string, mixed> $filters
+     * @param  array<string, mixed>  $filters
      */
     public static function validate(string $query, array $filters = []): bool
     {
@@ -24,7 +23,7 @@ final class SearchValidator
     }
 
     /**
-     * @param array<string, mixed> $filters
+     * @param  array<string, mixed>  $filters
      */
     public static function validateOrFail(string $query, array $filters = []): void
     {

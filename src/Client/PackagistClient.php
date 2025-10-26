@@ -8,7 +8,6 @@ use Akira\Packagist\Contracts\ClientContract;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-
 final class PackagistClient implements ClientContract
 {
     private const BASE_URL = 'https://repo.packagist.org';
@@ -40,7 +39,7 @@ final class PackagistClient implements ClientContract
     }
 
     /**
-     * @param array<string, mixed> $filters
+     * @param  array<string, mixed>  $filters
      */
     public function search(string $query, array $filters = []): mixed
     {

@@ -9,7 +9,6 @@ use Akira\Packagist\Contracts\ClientContract;
 use Akira\Packagist\DTOs\PackageDTO;
 use Akira\Packagist\Validators\PackageValidator;
 
-
 final class GetPackageAction
 {
     public function __construct(

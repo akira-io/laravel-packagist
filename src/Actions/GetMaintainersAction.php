@@ -8,7 +8,6 @@ use Akira\Packagist\Contracts\CacheContract;
 use Akira\Packagist\Contracts\ClientContract;
 use Akira\Packagist\Validators\PackageValidator;
 
-
 final class GetMaintainersAction
 {
     public function __construct(

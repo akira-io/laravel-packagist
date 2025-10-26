@@ -14,7 +14,6 @@ use Akira\Packagist\Contracts\ClientContract;
 use Akira\Packagist\DTOs\PackageDTO;
 use Akira\Packagist\Support\CacheFactory;
 
-
 final class PackagistManager
 {
     private ClientContract $client;
@@ -22,12 +21,12 @@ final class PackagistManager
     private CacheContract $cache;
 
     /**
-     * @param array<string, mixed> $config
+     * @param  array<string, mixed>  $config
      */
     public function __construct(
         private readonly array $config = [],
     ) {
-        $this->client = new PackagistClient();
+        $this->client = new PackagistClient;
         $this->initializeCache();
     }
 
@@ -53,8 +52,7 @@ final class PackagistManager
     }
 
     /**
-     * @param array<string, mixed> $filters
-     *
+     * @param  array<string, mixed>  $filters
      * @return array<string, mixed>
      */
     public function search(string $query, array $filters = []): array
@@ -63,8 +61,7 @@ final class PackagistManager
     }
 
     /**
-     * @param array<string, mixed> $filters
-     *
+     * @param  array<string, mixed>  $filters
      * @return array<string, mixed>
      */
     public function stats(array $filters = []): array

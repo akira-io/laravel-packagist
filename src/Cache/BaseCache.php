@@ -13,9 +13,6 @@ use Illuminate\Contracts\Cache\Repository;
  */
 abstract class BaseCache implements CacheContract
 {
-    /**
-     * @var Repository
-     */
     protected Repository $store;
 
     protected ?string $driver = null;
@@ -28,7 +25,7 @@ abstract class BaseCache implements CacheContract
     protected int $ttl = 0;
 
     /**
-     * @param array<int, string> $tags
+     * @param  array<int, string>  $tags
      */
     public function __construct(
         protected readonly Factory $cacheFactory,

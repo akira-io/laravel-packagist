@@ -8,7 +8,6 @@ use Akira\Packagist\Contracts\CacheContract;
 use Akira\Packagist\Contracts\ClientContract;
 use Akira\Packagist\Validators\StatsValidator;
 
-
 final class GetStatsAction
 {
     public function __construct(
@@ -17,15 +16,14 @@ final class GetStatsAction
     ) {}
 
     /**
-     * @param array<string, mixed> $filters
-     *
+     * @param  array<string, mixed>  $filters
      * @return array<string, mixed>
      */
     public function handle(array $filters = []): array
     {
         StatsValidator::validateOrFail($filters);
 
-        $cacheKey = 'packagist:stats:' . md5(json_encode($filters));
+        $cacheKey = 'packagist:stats:'.md5(json_encode($filters));
 
         return $this->cache->get(
             $cacheKey,

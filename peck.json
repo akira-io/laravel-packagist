@@ -2,7 +2,15 @@
     "preset": "base",
     "ignore": {
         "words": [
-            "php"
-        ]
+            "php",
+            "packagist",
+            "revalidate",
+            "dt",
+            "dto",
+            "validators",
+            "remembr",
+            "favers"
+        ],
+        "paths": []
     }
 }

@@ -8,7 +8,6 @@ use Akira\Packagist\PackagistManager;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-
 final class PackagistServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void

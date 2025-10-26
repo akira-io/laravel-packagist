@@ -10,8 +10,8 @@ namespace Akira\Packagist\DTOs;
 final readonly class VersionDTO
 {
     /**
-     * @param array<string, mixed> $keywords
-     * @param array<string, mixed> $authors
+     * @param  array<string, mixed>  $keywords
+     * @param  array<string, mixed>  $authors
      */
     public function __construct(
         public string $version,
@@ -25,7 +25,7 @@ final readonly class VersionDTO
     ) {}
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     public static function fromArray(array $data): self
     {
