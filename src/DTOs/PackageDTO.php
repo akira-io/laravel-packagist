@@ -51,7 +51,11 @@ final readonly class PackageDTO
             maintainers: $maintainers,
             homepage: isset($package['homepage']) ? (string) $package['homepage'] : null,
             license: isset($package['license']) ? (string) $package['license'] : null,
-            downloads: (int) ($package['downloads'] ?? 0),
+            downloads: [
+                'total' => (int) ($package['downloads']['total'] ?? $package['downloads'] ?? 0),
+                'monthly' => (int) ($package['downloads']['monthly'] ?? 0),
+                'daily' => (int) ($package['downloads']['daily'] ?? 0),
+            ],
             favers: (int) ($package['favers'] ?? 0),
         );
     }
