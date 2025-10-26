@@ -5,20 +5,27 @@ declare(strict_types=1);
 namespace Akira\Packagist\Jobs;
 
 use Akira\Packagist\Contracts\ClientContract;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 
-/**
- * Job para revalidar cache de forma assíncrona em background
- */
-final class RevalidateCacheJob
+final readonly class RevalidateCacheJob implements ShouldQueue
 {
     /**
      * @param  array<string, mixed>  $context
      */
     public function __construct(
-        private readonly string $cacheKey,
-        private readonly string $endpoint,
-        private readonly array $context = [],
+        private string $cacheKey,
+        private string $endpoint,
+        private array $context = [],
     ) {}
+
+    /**
+     * @return array<int, object>
+     */
+    public function middleware(): array
+    {
+        return [new WithoutOverlapping($this->cacheKey)];
+    }
 
     public function handle(ClientContract $client): void
     {
