@@ -235,6 +235,15 @@ public function search(
 | `$query` | string | Search term | `laravel` |
 | `$filters` | array | Filter options | `['type' => 'library']` |
 
+### Filter Options
+
+| Filter | Type | Default | Description | Example |
+|--------|------|---------|-------------|---------|
+| `per_page` | int | 15 | Results per page (max 100) | `['per_page' => 50]` |
+| `type` | string | - | Package type (library, etc) | `['type' => 'library']` |
+| `tags` | string | - | Search by tags | `['tags' => 'laravel']` |
+| `sort` | string | - | Sort order | `['sort' => 'downloads']` |
+
 ### Basic Search
 
 ```php
@@ -272,7 +281,7 @@ $result = [
 
 ### Advanced Filtering
 
-Filter search results by type:
+Filter search results by type and control pagination:
 
 ```php
 // Search for libraries only
@@ -280,16 +289,40 @@ $libraries = Packagist::search('laravel', [
     'type' => 'library',
 ]);
 
-// Search for development tools
-$devTools = Packagist::search('testing', [
+// Get more results (up to 100 per page)
+$results = Packagist::search('laravel', [
+    'per_page' => 50,  // Default is 15, max is 100
+]);
+
+// Combine multiple filters
+$packages = Packagist::search('orm', [
     'type' => 'library',
-    // Filter by other attributes if supported
+    'per_page' => 100,
+    'sort' => 'downloads',  // Sort by downloads or stars
 ]);
 
 // Search for abandoned packages
 $abandoned = Packagist::search('old-package', [
     'abandoned' => true,
 ]);
+```
+
+### Pagination Support
+
+The `per_page` parameter controls result pagination:
+
+```php
+// Get default 15 results
+$results = Packagist::search('laravel');  // ~15 results
+
+// Get 50 results
+$results = Packagist::search('laravel', ['per_page' => 50]);  // ~50 results
+
+// Get maximum 100 results per request
+$results = Packagist::search('laravel', ['per_page' => 100]);  // ~100 results
+
+// Values over 100 are automatically capped at 100
+$results = Packagist::search('laravel', ['per_page' => 500]);  // Still returns max 100
 ```
 
 ### Error Handling
@@ -780,6 +813,278 @@ if ($user->wantsDetails()) {
     foreach ($packages as $pkg) {
         $full = Packagist::package($pkg['name']);
     }
+}
+```
+
+---
+
+## 5. GetAllPackagesAction - All Packages
+
+Retrieve a complete list of all packages on Packagist.
+
+### Method Signature
+
+```php
+public function packages(): array
+```
+
+### Returns
+
+Array of package names:
+
+```php
+[
+    'packages' => [
+        'vendor/package-1',
+        'vendor/package-2',
+        // ... thousands more
+    ]
+]
+```
+
+### Basic Usage
+
+```php
+use Akira\Packagist\Facades\Packagist;
+
+// Get all packages
+$allPackages = Packagist::packages();
+
+foreach ($allPackages['packages'] as $packageName) {
+    echo $packageName;  // "laravel/framework"
+}
+```
+
+---
+
+## 6. GetTopPackagesAction - Top Packages
+
+Retrieve the most downloaded packages on Packagist.
+
+### Method Signature
+
+```php
+public function topPackages(int $limit = 9): array
+```
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `$limit` | int | 9 | Number of top packages to return |
+
+### Returns
+
+Array of top packages with download counts:
+
+```php
+[
+    [
+        'name' => 'laravel/framework',
+        'description' => 'The Laravel Framework.',
+        'downloads' => 999999999,
+        'url' => 'https://packagist.org/packages/laravel/framework',
+    ],
+    // ... more packages
+]
+```
+
+### Examples
+
+```php
+// Top 9 packages (default)
+$topPackages = Packagist::topPackages();
+
+// Top 5 packages
+$topFive = Packagist::topPackages(5);
+
+// Top 20 packages
+$topTwenty = Packagist::topPackages(20);
+
+// Iterate through results
+foreach ($topPackages as $package) {
+    echo "{$package['name']}: {$package['downloads']} downloads";
+}
+```
+
+---
+
+## 7. GetVendorPackagesAction - Vendor Packages
+
+Retrieve all packages from a specific vendor.
+
+### Method Signature
+
+```php
+public function vendorPackages(string $vendor): array
+```
+
+### Parameters
+
+| Parameter | Type | Description | Example |
+|-----------|------|-------------|---------|
+| `$vendor` | string | Vendor name (case-insensitive) | `laravel` or `Laravel` |
+
+### Returns
+
+Array of search results from vendor:
+
+```php
+[
+    'results' => [
+        [
+            'name' => 'laravel/framework',
+            'description' => 'The Laravel Framework.',
+            'downloads' => 999999999,
+            'url' => 'https://packagist.org/packages/laravel/framework',
+        ],
+        // ... more packages from vendor
+    ],
+    'total' => 123,
+]
+```
+
+### Examples
+
+```php
+// Get all Laravel packages
+$laravelPackages = Packagist::vendorPackages('laravel');
+
+// Get all Symfony packages
+$symfonyPackages = Packagist::vendorPackages('symfony');
+
+// Iterate through vendor packages
+foreach ($laravelPackages['results'] as $package) {
+    echo $package['name'];
+}
+
+// Get total packages in vendor
+echo "Total: {$laravelPackages['total']}";
+```
+
+### Real-World Examples
+
+#### Example 1: Display Vendor Packages
+
+```php
+public function showVendor($vendor)
+{
+    $packages = Packagist::vendorPackages($vendor);
+
+    return view('vendor.packages', [
+        'vendor' => $vendor,
+        'packages' => $packages['results'],
+        'total' => $packages['total'],
+    ]);
+}
+```
+
+#### Example 2: Analyze Vendor Statistics
+
+```php
+public function analyzeVendor($vendor)
+{
+    $packages = Packagist::vendorPackages($vendor);
+
+    $stats = collect($packages['results'])->map(function ($pkg) {
+        return [
+            'name' => $pkg['name'],
+            'downloads' => $pkg['downloads'],
+        ];
+    })->sortByDesc('downloads');
+
+    return $stats->take(10);  // Top 10
+}
+```
+
+---
+
+## 8. GetVendorTopPackagesAction - Top Vendor Packages
+
+Retrieve the most downloaded packages from a specific vendor.
+
+### Method Signature
+
+```php
+public function vendorTopPackages(string $vendor, int $limit = 9): array
+```
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `$vendor` | string | - | Vendor name |
+| `$limit` | int | 9 | Number of top packages |
+
+### Returns
+
+Array of top packages from vendor, sorted by downloads:
+
+```php
+[
+    [
+        'name' => 'laravel/framework',
+        'description' => 'The Laravel Framework.',
+        'downloads' => 999999999,
+        'url' => 'https://packagist.org/packages/laravel/framework',
+        'repository' => 'https://github.com/laravel/framework',
+    ],
+    // ... more packages
+]
+```
+
+### Examples
+
+```php
+// Top 9 Laravel packages (default)
+$laravelTop = Packagist::vendorTopPackages('laravel');
+
+// Top 5 Symfony packages
+$symfonyTop = Packagist::vendorTopPackages('symfony', 5);
+
+// Top 20 packages from any vendor
+$vendorTop = Packagist::vendorTopPackages('vendor-name', 20);
+
+// Use in dashboard
+foreach ($laravelTop as $package) {
+    echo "{$package['name']}: {$package['downloads']} downloads";
+}
+```
+
+### Real-World Examples
+
+#### Example 1: Vendor Dashboard
+
+```php
+public class VendorDashboard
+{
+    public function index($vendor)
+    {
+        $topPackages = Packagist::vendorTopPackages($vendor, 10);
+        $stats = Packagist::stats();
+
+        return view('dashboard', [
+            'vendor' => $vendor,
+            'topPackages' => $topPackages,
+            'totalDownloads' => collect($topPackages)
+                ->sum('downloads'),
+        ]);
+    }
+}
+```
+
+#### Example 2: Package Comparison
+
+```php
+public function compare($vendor1, $vendor2)
+{
+    $vendor1Top = Packagist::vendorTopPackages($vendor1, 5);
+    $vendor2Top = Packagist::vendorTopPackages($vendor2, 5);
+
+    return [
+        $vendor1 => $vendor1Top,
+        $vendor2 => $vendor2Top,
+    ];
 }
 ```
 
