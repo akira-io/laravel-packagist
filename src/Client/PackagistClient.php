@@ -7,7 +7,9 @@ namespace Akira\Packagist\Client;
 use Akira\Packagist\Contracts\ClientContract;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Container\Attributes\Singleton;
 
+#[Singleton]
 final class PackagistClient implements ClientContract
 {
     private const string BASE_URL = 'https://packagist.org';
