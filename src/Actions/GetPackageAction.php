@@ -24,7 +24,7 @@ final class GetPackageAction
 
         $data = $this->cache->get(
             $cacheKey,
-            fn () => $this->client->get("/p/{$package}.json"),
+            fn () => $this->client->get("/packages/{$package}.json"),
             action: self::class
         );
 

@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 final class PackagistClient implements ClientContract
 {
-    private const BASE_URL = 'https://repo.packagist.org';
+    private const string BASE_URL = 'https://packagist.org';
 
     private Client $httpClient;
 
