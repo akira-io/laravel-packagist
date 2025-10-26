@@ -6,20 +6,17 @@ namespace Akira\Packagist\Providers;
 
 use Akira\Packagist\Commands\InstallCommand;
 use Akira\Packagist\PackagistManager;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-final class PackagistServiceProvider extends PackageServiceProvider
+final class PackagistServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    public function register(): void
     {
-        $package
-            ->name('laravel-packagist')
-            ->hasConfigFile('packagist');
-    }
+        $this->mergeConfigFrom(
+            __DIR__ . '/../../config/packagist.php',
+            'packagist'
+        );
 
-    public function registeringPackage(): void
-    {
         $this->app->singleton(PackagistManager::class, function (): PackagistManager {
             return new PackagistManager(
                 config('packagist', [])
@@ -27,9 +24,12 @@ final class PackagistServiceProvider extends PackageServiceProvider
         });
     }
 
-    public function bootingPackage(): void
+    public function boot(): void
     {
-        // Register commands
+        $this->publishes([
+            __DIR__ . '/../../config/packagist.php' => config_path('packagist.php'),
+        ], 'config');
+
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
