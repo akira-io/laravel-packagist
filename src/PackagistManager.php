@@ -44,11 +44,31 @@ final class PackagistManager
                 'ttl' => $strategyConfig['ttl'] ?? 3600,
             ]
         );
+
+        $this->initializeAutoRevalidation();
+    }
+
+    private function initializeAutoRevalidation(): void
+    {
+        $autoRevalidationConfig = $this->config['auto_revalidation'] ?? [];
+
+        if (! ($autoRevalidationConfig['enabled'] ?? false)) {
+            return;
+        }
+
+        if (! method_exists($this->cache, 'enableAutoRevalidation')) {
+            return;
+        }
+
+        $this->cache->enableAutoRevalidation(
+            $autoRevalidationConfig['revalidate_before_expiry'] ?? 300,
+            $autoRevalidationConfig['queue'] ?? 'default'
+        );
     }
 
     public function package(string $name): PackageDTO
     {
-        return (new GetPackageAction($this->client, $this->cache))->handle($name);
+        return new GetPackageAction($this->client, $this->cache)->handle($name);
     }
 
     /**
@@ -57,7 +77,7 @@ final class PackagistManager
      */
     public function search(string $query, array $filters = []): array
     {
-        return (new SearchPackagesAction($this->client, $this->cache))->handle($query, $filters);
+        return new SearchPackagesAction($this->client, $this->cache)->handle($query, $filters);
     }
 
     /**
@@ -66,7 +86,7 @@ final class PackagistManager
      */
     public function stats(array $filters = []): array
     {
-        return (new GetStatsAction($this->client, $this->cache))->handle($filters);
+        return new GetStatsAction($this->client, $this->cache)->handle($filters);
     }
 
     /**
@@ -74,7 +94,7 @@ final class PackagistManager
      */
     public function maintainers(string $package): array
     {
-        return (new GetMaintainersAction($this->client, $this->cache))->handle($package);
+        return new GetMaintainersAction($this->client, $this->cache)->handle($package);
     }
 
     public function withClient(ClientContract $client): self

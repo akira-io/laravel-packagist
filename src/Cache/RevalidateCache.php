@@ -10,10 +10,19 @@ final class RevalidateCache extends BaseCache
     {
         $resolvedTtl = $this->resolveTtl($ttl);
 
-        return $this->store->remember(
+        $result = $this->store->remember(
             $key,
             $resolvedTtl > 0 ? $resolvedTtl : null,
             $callback
         );
+
+        if ($this->autoRevalidationEnabled && $resolvedTtl > 0) {
+            $this->scheduleRevalidation($key, '', [
+                'ttl' => $resolvedTtl,
+                'action' => $action,
+            ]);
+        }
+
+        return $result;
     }
 }

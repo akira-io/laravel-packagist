@@ -13,6 +13,8 @@ use Illuminate\Contracts\Cache\Repository;
  */
 abstract class BaseCache implements CacheContract
 {
+    use AutoRevalidationTrait;
+
     protected Repository $store;
 
     protected ?string $driver = null;
