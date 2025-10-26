@@ -9,8 +9,8 @@ use Illuminate\Console\Command;
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\intro;
+use function Laravel\Prompts\note;
 use function Laravel\Prompts\outro;
-use function Laravel\Prompts\section;
 
 final class InstallCommand extends Command
 {
@@ -22,69 +22,61 @@ final class InstallCommand extends Command
     {
         intro('Laravel Packagist Installation');
 
-        // Step 1: Publish configuration
-        section('Step 1: Publishing configuration file');
+        info('Step 1: Publishing configuration file');
         $this->call('vendor:publish', [
-            '--provider' => 'Akira\Packagist\Providers\PackagistServiceProvider',
+            '--provider' => 'Akira\\Packagist\\Providers\\PackagistServiceProvider',
             '--force' => false,
         ]);
         info('Configuration published to config/packagist.php');
 
-        // Step 2: Show environment setup
-        section('Step 2: Environment configuration (optional)');
+        info('Step 2: Environment configuration (optional)');
         info('Add these to your .env file:');
-        $this->newLine();
-        $this->table(
-            ['Variable', 'Default', 'Description'],
-            [
-                ['PACKAGIST_CACHE_DRIVER', 'redis', 'Cache driver (redis, file, memcached, database)'],
-                ['PACKAGIST_CACHE_TTL', '28800', 'Cache time to live in seconds'],
-                ['PACKAGIST_CACHE_ENABLED', 'true', 'Enable/disable caching'],
-                ['PACKAGIST_AUTO_REVALIDATION', 'true', 'Enable background cache refresh'],
-                ['PACKAGIST_REVALIDATE_BEFORE_EXPIRY', '300', 'Seconds before expiry to refresh'],
-                ['PACKAGIST_QUEUE', 'low', 'Queue name for auto-revalidation jobs'],
-            ]
-        );
 
-        // Step 3: Queue configuration
-        section('Step 3: Queue configuration (for auto-revalidation)');
+        $envVariables = 'PACKAGIST_CACHE_DRIVER=redis          # Cache driver (redis, file, memcached, database)'.PHP_EOL.
+            'PACKAGIST_CACHE_TTL=28800             # Cache time to live in seconds (8 hours)'.PHP_EOL.
+            'PACKAGIST_CACHE_ENABLED=true          # Enable/disable caching'.PHP_EOL.
+            'PACKAGIST_AUTO_REVALIDATION=true      # Enable background cache refresh'.PHP_EOL.
+            'PACKAGIST_REVALIDATE_BEFORE_EXPIRY=300 # Seconds before expiry to refresh'.PHP_EOL.
+            'PACKAGIST_QUEUE=low                   # Queue name for auto-revalidation jobs';
+
+        note($envVariables);
+
+        info('Step 3: Queue configuration (for auto-revalidation)');
         info('If using auto-revalidation, ensure queue is configured:');
-        $this->newLine();
-        $this->line('  For Redis queue:');
-        $this->line('    QUEUE_CONNECTION=redis');
-        $this->newLine();
-        $this->line('  For Database queue:');
-        $this->line('    php artisan queue:table && php artisan migrate');
-        $this->line('    QUEUE_CONNECTION=database');
-        $this->newLine();
-        $this->line('  Start queue worker:');
-        $this->line('    php artisan queue:work redis --queue=low');
 
-        // Step 4: Test installation
-        section('Step 4: Testing installation');
+        $queueConfig = 'For Redis queue:'.PHP_EOL.
+            '  QUEUE_CONNECTION=redis'.PHP_EOL.PHP_EOL.
+            'For Database queue:'.PHP_EOL.
+            '  php artisan queue:table && php artisan migrate'.PHP_EOL.
+            '  QUEUE_CONNECTION=database'.PHP_EOL.PHP_EOL.
+            'Start queue worker:'.PHP_EOL.
+            '  php artisan queue:work redis --queue=low';
+
+        note($queueConfig);
+
+        info('Step 4: Testing installation');
         if (confirm('Run quick test?', default: true)) {
             $this->testInstallation();
         }
 
-        // Step 5: GitHub star
-        section('Step 5: Support the project');
-        if (confirm('Star us on GitHub? Open repository in browser?', default: true)) {
+        info('Step 5: Support the project');
+        if (confirm('Open repository in browser?', default: true)) {
             $this->openGitHub();
         }
 
         // Success message
         outro('Installation complete!');
-        info('Next steps:');
-        $this->newLine();
-        $this->line('  1. Review config/packagist.php');
-        $this->line('  2. Configure environment variables if needed');
-        $this->line('  3. Start queue worker if using auto-revalidation');
-        $this->line('  4. Read documentation: docs/00-toc.md');
-        $this->newLine();
-        info('Quick test:');
-        $this->line('  php artisan tinker');
-        $this->line('  Packagist::package("laravel/framework")');
-        $this->newLine();
+
+        $nextSteps = 'Next steps:'.PHP_EOL.
+            '  1. Review config/packagist.php'.PHP_EOL.
+            '  2. Configure environment variables if needed'.PHP_EOL.
+            '  3. Start queue worker if using auto-revalidation'.PHP_EOL.
+            '  4. Read documentation: docs/00-toc.md'.PHP_EOL.PHP_EOL.
+            'Quick test:'.PHP_EOL.
+            '  php artisan tinker'.PHP_EOL.
+            '  Packagist::package("laravel/framework")';
+
+        note($nextSteps);
 
         return self::SUCCESS;
     }
@@ -95,37 +87,39 @@ final class InstallCommand extends Command
             info('Testing configuration...');
 
             // Check if facade is accessible
-            if (!class_exists('Akira\Packagist\Facades\Packagist')) {
-                $this->error('Packagist facade not found');
+            if (! class_exists('Akira\\Packagist\\Facades\\Packagist')) {
+                info('Packagist facade not found');
+
                 return;
             }
-            $this->line('  Packagist facade accessible');
+            info('Packagist facade accessible');
 
             // Check if configuration is available
             $config = config('packagist');
-            if (!$config) {
-                $this->error('Configuration not found');
+            if (! $config) {
+                info('Configuration not found');
+
                 return;
             }
-            $this->line('  Configuration loaded');
+            info('Configuration loaded');
 
             // Check cache configuration
             if (config('packagist.use.enabled')) {
-                $this->line('  Caching enabled');
+                info('Caching enabled');
             } else {
-                $this->line('  Caching disabled (configure in .env)');
+                info('Caching disabled (configure in .env)');
             }
 
             // Check auto-revalidation
             if (config('packagist.auto_revalidation.enabled')) {
-                $this->line('  Auto-revalidation enabled');
+                info('Auto-revalidation enabled');
             } else {
-                $this->line('  Auto-revalidation disabled (configure in .env)');
+                info('Auto-revalidation disabled (configure in .env)');
             }
 
             info('All checks passed!');
         } catch (\Exception $e) {
-            $this->error('Test failed: ' . $e->getMessage());
+            info('Test failed: '.$e->getMessage());
         }
     }
 
@@ -139,10 +133,11 @@ final class InstallCommand extends Command
                 'Darwin' => shell_exec("open '{$url}'"),
                 'Linux' => shell_exec("xdg-open '{$url}'"),
                 'Windows' => shell_exec("start '{$url}'"),
+                default => null,
             };
             info("Opening {$url}");
         } catch (\Exception $e) {
-            $this->line("Visit: {$url}");
+            info("Visit: {$url}");
         }
     }
 }

@@ -13,7 +13,7 @@ final class PackagistServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../../config/packagist.php',
+            __DIR__.'/../../config/packagist.php',
             'packagist'
         );
 
@@ -27,7 +27,7 @@ final class PackagistServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../../config/packagist.php' => config_path('packagist.php'),
+            __DIR__.'/../../config/packagist.php' => config_path('packagist.php'),
         ], 'config');
 
         if ($this->app->runningInConsole()) {
