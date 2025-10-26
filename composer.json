@@ -45,6 +45,13 @@
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Akira\\Packagist\\Providers\\PackagistServiceProvider"
+      ]
+    }
+  },
   "config": {
     "sort-packages": true,
     "preferred-install": "dist",
