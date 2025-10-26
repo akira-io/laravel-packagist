@@ -12,6 +12,7 @@ final readonly class PackageDTO
     /**
      * @param  array<string, VersionDTO>  $versions
      * @param  array<int, MaintainerDTO>  $maintainers
+     * @param  array<string, int>  $downloads
      */
     public function __construct(
         public string $name,
@@ -21,7 +22,7 @@ final readonly class PackageDTO
         public array $maintainers = [],
         public ?string $homepage = null,
         public ?string $license = null,
-        public int $downloads = 0,
+        public array $downloads = [],
         public int $favers = 0,
     ) {}
 
