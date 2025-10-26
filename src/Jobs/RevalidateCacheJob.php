@@ -8,15 +8,15 @@ use Akira\Packagist\Contracts\ClientContract;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 
-final readonly class RevalidateCacheJob implements ShouldQueue
+final class RevalidateCacheJob implements ShouldQueue
 {
     /**
      * @param  array<string, mixed>  $context
      */
     public function __construct(
-        private string $cacheKey,
-        private string $endpoint,
-        private array $context = [],
+        private readonly string $cacheKey,
+        private readonly string $endpoint,
+        private readonly array $context = [],
     ) {}
 
     /**
@@ -32,15 +32,16 @@ final readonly class RevalidateCacheJob implements ShouldQueue
         try {
             $data = $client->get($this->endpoint);
 
+            $ttlValue = $this->context['ttl'] ?? 3600;
+            $ttl = is_int($ttlValue) ? $ttlValue : (int) $ttlValue;
+
             cache()->put(
                 $this->cacheKey,
                 $data,
-                now()->addSeconds($this->context['ttl'] ?? 3600)
+                now()->addSeconds($ttl)
             );
-        } catch (\Exception $exception) {
-            \Log::warning("Packagist cache revalidation failed for {$this->cacheKey}", [
-                'exception' => $exception->getMessage(),
-            ]);
+        } catch (\Exception) {
+            logger()->warning('Packagist cache revalidation failed for '.$this->cacheKey);
         }
     }
 }
