@@ -28,9 +28,33 @@ final readonly class GetVendorPackagesAction
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->client->search("vendor:{$vendor}", ['per_page' => 100]),
+            fn () => $this->fetchVendorPackages($vendor),
             action: self::class,
             endpoint: Endpoints::search()
         );
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function fetchVendorPackages(string $vendor): array
+    {
+        // Search for vendor name instead of using vendor: filter
+        $response = $this->client->search($vendor, ['per_page' => 100]);
+
+        if (! isset($response['results']) || ! is_array($response['results'])) {
+            return ['results' => [], 'total' => 0];
+        }
+
+        // Filter only packages that start with vendor/
+        $vendorPrefix = strtolower($vendor) . '/';
+        $filtered = array_filter($response['results'], function ($package) use ($vendorPrefix) {
+            return str_starts_with(strtolower($package['name'] ?? ''), $vendorPrefix);
+        });
+
+        return [
+            'results' => array_values($filtered),
+            'total' => count($filtered),
+        ];
     }
 }

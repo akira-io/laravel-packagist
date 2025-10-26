@@ -40,11 +40,18 @@ final readonly class GetVendorTopPackagesAction
      */
     private function fetchVendorTopPackages(string $vendor, int $limit): array
     {
-        $response = $this->client->search("vendor:{$vendor}", ['per_page' => 100]);
+        // Search for vendor name and filter manually
+        $response = $this->client->search($vendor, ['per_page' => 100]);
 
         if (! isset($response['results']) || ! is_array($response['results'])) {
             return [];
         }
+
+        // Filter only packages that start with vendor/
+        $vendorPrefix = strtolower($vendor) . '/';
+        $filtered = array_filter($response['results'], function ($package) use ($vendorPrefix) {
+            return str_starts_with(strtolower($package['name'] ?? ''), $vendorPrefix);
+        });
 
         // Get packages with most downloads
         $packages = array_map(function ($package) {
@@ -55,7 +62,7 @@ final readonly class GetVendorTopPackagesAction
                 'url' => $package['url'] ?? '',
                 'repository' => $package['repository'] ?? '',
             ];
-        }, $response['results']);
+        }, $filtered);
 
         // Sort by downloads descending
         usort($packages, fn ($a, $b) => $b['downloads'] <=> $a['downloads']);
