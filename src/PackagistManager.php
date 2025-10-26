@@ -9,6 +9,8 @@ use Akira\Packagist\Actions\GetMaintainersAction;
 use Akira\Packagist\Actions\GetPackageAction;
 use Akira\Packagist\Actions\GetStatsAction;
 use Akira\Packagist\Actions\GetTopPackagesAction;
+use Akira\Packagist\Actions\GetVendorPackagesAction;
+use Akira\Packagist\Actions\GetVendorTopPackagesAction;
 use Akira\Packagist\Actions\SearchPackagesAction;
 use Akira\Packagist\Client\PackagistClient;
 use Akira\Packagist\Contracts\CacheContract;
@@ -113,6 +115,22 @@ final class PackagistManager
     public function topPackages(int $limit = 9): array
     {
         return new GetTopPackagesAction($this->client, $this->cache)->handle($limit);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function vendorPackages(string $vendor): array
+    {
+        return new GetVendorPackagesAction($this->client, $this->cache)->handle($vendor);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function vendorTopPackages(string $vendor, int $limit = 9): array
+    {
+        return new GetVendorTopPackagesAction($this->client, $this->cache)->handle($vendor, $limit);
     }
 
     public function withClient(ClientContract $client): self
