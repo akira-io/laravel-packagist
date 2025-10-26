@@ -55,16 +55,15 @@ final class InstallCommand extends Command
         note($queueConfig);
 
         info('Step 4: Testing installation');
-        if (confirm('Run quick test?', default: true)) {
+        if (confirm('Run quick test?')) {
             $this->testInstallation();
         }
 
-        info('Step 5: Support the project');
-        if (confirm('Open repository in browser?', default: true)) {
+        info('Step 5: Support the project - Give a star on GitHub');
+        if (confirm('Open repository in browser?')) {
             $this->openGitHub();
         }
 
-        // Success message
         outro('Installation complete!');
 
         $nextSteps = 'Next steps:'.PHP_EOL.
@@ -86,7 +85,6 @@ final class InstallCommand extends Command
         try {
             info('Testing configuration...');
 
-            // Check if facade is accessible
             if (! class_exists('Akira\\Packagist\\Facades\\Packagist')) {
                 info('Packagist facade not found');
 
@@ -94,7 +92,6 @@ final class InstallCommand extends Command
             }
             info('Packagist facade accessible');
 
-            // Check if configuration is available
             $config = config('packagist');
             if (! $config) {
                 info('Configuration not found');
@@ -103,14 +100,12 @@ final class InstallCommand extends Command
             }
             info('Configuration loaded');
 
-            // Check cache configuration
             if (config('packagist.use.enabled')) {
                 info('Caching enabled');
             } else {
                 info('Caching disabled (configure in .env)');
             }
 
-            // Check auto-revalidation
             if (config('packagist.auto_revalidation.enabled')) {
                 info('Auto-revalidation enabled');
             } else {
@@ -125,7 +120,7 @@ final class InstallCommand extends Command
 
     private function openGitHub(): void
     {
-        $url = 'https://github.com/akira/laravel-packagist';
+        $url = 'https://github.com/akira-io/laravel-packagist';
         $os = PHP_OS_FAMILY;
 
         try {
