@@ -15,8 +15,7 @@ final class PackagistServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('laravel-packagist')
-            ->hasConfigFile('packagist')
-            ->hasCommand(InstallCommand::class);
+            ->hasConfigFile('packagist');
     }
 
     public function registeringPackage(): void
@@ -30,6 +29,11 @@ final class PackagistServiceProvider extends PackageServiceProvider
 
     public function bootingPackage(): void
     {
-        //
+        // Register commands
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                InstallCommand::class,
+            ]);
+        }
     }
 }
