@@ -8,9 +8,6 @@ use Akira\Packagist\Contracts\CacheContract;
 use Illuminate\Contracts\Cache\Factory;
 use Illuminate\Contracts\Cache\Repository;
 
-/**
- * @psalm-type CacheRepository = Repository
- */
 abstract class BaseCache implements CacheContract
 {
     use AutoRevalidationTrait;
@@ -41,6 +38,11 @@ abstract class BaseCache implements CacheContract
         $this->store = $this->resolveStore();
     }
 
+    public function forget(string $key): void
+    {
+        $this->store->forget($key);
+    }
+
     protected function resolveStore(): Repository
     {
         $repository = $this->driver === null
@@ -51,7 +53,12 @@ abstract class BaseCache implements CacheContract
             return $repository;
         }
 
-        return $repository->tags($this->tags);
+        if ($this->driverSupportsTagging()) {
+
+            return $repository->tags($this->tags);
+        }
+
+        return $repository;
     }
 
     protected function resolveTtl(int $ttl): int
@@ -59,8 +66,10 @@ abstract class BaseCache implements CacheContract
         return $ttl > 0 ? $ttl : $this->ttl;
     }
 
-    public function forget(string $key): void
+    private function driverSupportsTagging(): bool
     {
-        $this->store->forget($key);
+        $supportedDrivers = ['redis', 'memcached', 'database', 'dynamodb'];
+
+        return in_array($this->driver, $supportedDrivers, true);
     }
 }
