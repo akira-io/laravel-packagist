@@ -38,12 +38,12 @@ final readonly class GetTopPackagesAction
     {
         $response = $this->client->get('/packages/list.json');
 
-        if (! isset($response['packages']) || ! is_array($response['packages'])) {
+        if (! isset($response['packageNames']) || ! is_array($response['packageNames'])) {
             return [];
         }
 
         $packages = [];
-        foreach (array_slice($response['packages'], 0, $limit * 2) as $packageName) {
+        foreach (array_slice($response['packageNames'], 0, $limit * 2) as $packageName) {
             try {
                 $packageData = $this->client->get("/packages/{$packageName}.json");
                 if (isset($packageData['package'])) {
