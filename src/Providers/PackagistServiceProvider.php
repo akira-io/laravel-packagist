@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Akira\Packagist\Providers;
 
+use Akira\Packagist\Commands\InstallCommand;
 use Akira\Packagist\PackagistManager;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -14,7 +15,8 @@ final class PackagistServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('laravel-packagist')
-            ->hasConfigFile('packagist');
+            ->hasConfigFile('packagist')
+            ->hasCommand(InstallCommand::class);
     }
 
     public function registeringPackage(): void
