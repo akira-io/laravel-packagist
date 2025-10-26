@@ -28,7 +28,7 @@ final readonly class GetVendorPackagesAction
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->client->search("vendor:{$vendor}"),
+            fn () => $this->client->search("vendor:{$vendor}", ['per_page' => 100]),
             action: self::class,
             endpoint: Endpoints::search()
         );

@@ -40,7 +40,7 @@ final readonly class GetVendorTopPackagesAction
      */
     private function fetchVendorTopPackages(string $vendor, int $limit): array
     {
-        $response = $this->client->search("vendor:{$vendor}");
+        $response = $this->client->search("vendor:{$vendor}", ['per_page' => 100]);
 
         if (! isset($response['results']) || ! is_array($response['results'])) {
             return [];

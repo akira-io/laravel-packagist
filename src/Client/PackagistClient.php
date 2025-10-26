@@ -47,6 +47,10 @@ final class PackagistClient implements ClientContract
     {
         $params = ['q' => $query];
 
+        if (isset($filters['per_page'])) {
+            $params['per_page'] = min((int) $filters['per_page'], 100);
+        }
+
         if (isset($filters['type'])) {
             $params['type'] = $filters['type'];
         }
