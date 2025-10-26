@@ -24,6 +24,13 @@ final readonly class PackageDTO
         public ?string $license = null,
         public array $downloads = [],
         public int $favers = 0,
+        public int $githubStars = 0,
+        public int $githubWatchers = 0,
+        public int $githubForks = 0,
+        public int $githubOpenIssues = 0,
+        public ?string $language = null,
+        public int $dependents = 0,
+        public int $suggesters = 0,
     ) {}
 
     /**
@@ -57,6 +64,13 @@ final readonly class PackageDTO
                 'daily' => (int) ($package['downloads']['daily'] ?? 0),
             ],
             favers: (int) ($package['favers'] ?? 0),
+            githubStars: (int) ($package['github_stars'] ?? 0),
+            githubWatchers: (int) ($package['github_watchers'] ?? 0),
+            githubForks: (int) ($package['github_forks'] ?? 0),
+            githubOpenIssues: (int) ($package['github_open_issues'] ?? 0),
+            language: isset($package['language']) ? (string) $package['language'] : null,
+            dependents: (int) ($package['dependents'] ?? 0),
+            suggesters: (int) ($package['suggesters'] ?? 0),
         );
     }
 
@@ -75,6 +89,13 @@ final readonly class PackageDTO
             'license' => $this->license,
             'downloads' => $this->downloads,
             'favers' => $this->favers,
+            'githubStars' => $this->githubStars,
+            'githubWatchers' => $this->githubWatchers,
+            'githubForks' => $this->githubForks,
+            'githubOpenIssues' => $this->githubOpenIssues,
+            'language' => $this->language,
+            'dependents' => $this->dependents,
+            'suggesters' => $this->suggesters,
         ];
     }
 }
