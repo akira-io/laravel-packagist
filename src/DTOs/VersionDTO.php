@@ -29,6 +29,16 @@ final readonly class VersionDTO
      */
     public static function fromArray(array $data): self
     {
+        // Handle license as string or array
+        $license = null;
+        if (isset($data['license'])) {
+            if (is_array($data['license'])) {
+                $license = implode(', ', $data['license']);
+            } else {
+                $license = (string) $data['license'];
+            }
+        }
+
         return new self(
             version: (string) ($data['version'] ?? ''),
             name: (string) ($data['name'] ?? ''),
@@ -36,7 +46,7 @@ final readonly class VersionDTO
             require: (string) (json_encode($data['require'] ?? [])),
             keywords: (array) ($data['keywords'] ?? []),
             homepage: isset($data['homepage']) ? (string) $data['homepage'] : null,
-            license: isset($data['license']) ? (string) $data['license'] : null,
+            license: $license,
             authors: (array) ($data['authors'] ?? []),
         );
     }
