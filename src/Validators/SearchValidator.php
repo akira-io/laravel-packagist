@@ -15,12 +15,9 @@ final class SearchValidator
         return strlen($query) <= 1000;
     }
 
-    /**
-     * @param  array<string, mixed>  $filters
-     */
-    public static function validateOrFail(string $query, array $filters = []): void
+    public static function validateOrFail(string $query): void
     {
-        if (! self::validate($query, $filters)) {
+        if (! self::validate($query)) {
             throw new \InvalidArgumentException(
                 'Invalid search query or filters'
             );
