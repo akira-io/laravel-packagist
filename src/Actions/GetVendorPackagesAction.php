@@ -47,7 +47,7 @@ final readonly class GetVendorPackagesAction
         }
 
         // Filter only packages that start with vendor/
-        $vendorPrefix = strtolower($vendor) . '/';
+        $vendorPrefix = strtolower($vendor).'/';
         $filtered = array_filter($response['results'], function ($package) use ($vendorPrefix) {
             return str_starts_with(strtolower($package['name'] ?? ''), $vendorPrefix);
         });

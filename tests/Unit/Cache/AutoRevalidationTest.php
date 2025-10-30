@@ -4,33 +4,36 @@ declare(strict_types=1);
 
 use Akira\Packagist\Cache\AutoRevalidationTrait;
 
+final class AutoRevalidationStub
+{
+    use AutoRevalidationTrait;
+
+    public function isAutoRevalidationEnabled(): bool
+    {
+        return $this->autoRevalidationEnabled;
+    }
+}
+
 describe('AutoRevalidation', function (): void {
     test('trait exists', function (): void {
         expect(trait_exists(AutoRevalidationTrait::class))->toBeTrue();
     });
 
     test('can enable auto revalidation', function (): void {
-        $stub = new class
-        {
-            use AutoRevalidationTrait;
-        };
+        $stub = new AutoRevalidationStub();
 
-        $result = $stub->enableAutoRevalidation(300, 'default');
+        $result = $stub->enableAutoRevalidation();
 
-        expect($result)->toBe($stub);
-        expect($stub->autoRevalidationEnabled)->toBeTrue();
+        expect($result)->toBe($stub)
+            ->and($stub->isAutoRevalidationEnabled())->toBeTrue();
     });
 
     test('can disable auto revalidation', function (): void {
-        $stub = new class
-        {
-            use AutoRevalidationTrait;
-
-            public bool $autoRevalidationEnabled = true;
-        };
+        $stub = new AutoRevalidationStub();
+        $stub->enableAutoRevalidation();
 
         $stub->disableAutoRevalidation();
 
-        expect($stub->autoRevalidationEnabled)->toBeFalse();
+        expect($stub->isAutoRevalidationEnabled())->toBeFalse();
     });
 });

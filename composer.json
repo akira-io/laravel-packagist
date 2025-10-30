@@ -12,7 +12,7 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Kidiatoliny Gonçalves" ,
+      "name": "Kidiatoliny Gonçalves",
       "email": "kdiatoliny@gmail.com"
     }
   ],
@@ -66,7 +66,7 @@
     "test:type-coverage": "pest --type-coverage --exactly=100 --compact",
     "test:typos": "peck",
     "test:lint": "pint --test",
-    "test:unit": "pest --coverage --exactly=100 --compact",
+    "test:unit": "pest --coverage --min=100 --compact",
     "test:types": "phpstan",
     "test:refactor": "rector --dry-run",
     "test": [

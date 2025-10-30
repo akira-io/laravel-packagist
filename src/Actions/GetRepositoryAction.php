@@ -61,7 +61,7 @@ final readonly class GetRepositoryAction
         if (! empty($package['repository'])) {
             return $package['repository'];
         }
-        
+
         $versions = $package['versions'] ?? [];
         if (! empty($versions)) {
             $latestVersion = reset($versions);
