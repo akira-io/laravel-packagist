@@ -6,20 +6,13 @@ namespace Akira\Packagist\Validators;
 
 final class SearchValidator
 {
-    /**
-     * @param  array<string, mixed>  $filters
-     */
-    public static function validate(string $query, array $filters = []): bool
+    public static function validate(string $query): bool
     {
-        if (empty(trim($query))) {
+        if (in_array(trim($query), ['', '0'], true)) {
             return false;
         }
 
-        if (strlen($query) > 1000) {
-            return false;
-        }
-
-        return true;
+        return strlen($query) <= 1000;
     }
 
     /**

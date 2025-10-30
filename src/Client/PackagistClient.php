@@ -10,20 +10,15 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Container\Attributes\Singleton;
 
 #[Singleton]
-final class PackagistClient implements ClientContract
+final readonly class PackagistClient implements ClientContract
 {
     private const string BASE_URL = 'https://packagist.org';
 
-    private Client $httpClient;
-
-    public function __construct(?Client $httpClient = null)
-    {
-        $this->httpClient = $httpClient ?? new Client([
-            'base_uri' => self::BASE_URL,
-            'timeout' => 30,
-            'connect_timeout' => 10,
-        ]);
-    }
+    public function __construct(private ?Client $httpClient = new Client([
+        'base_uri' => self::BASE_URL,
+        'timeout' => 30,
+        'connect_timeout' => 10,
+    ])) {}
 
     public function get(string $endpoint): mixed
     {

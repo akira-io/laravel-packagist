@@ -24,7 +24,7 @@ final readonly class GetTopPackagesAction
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->fetchTopPackages($limit),
+            fn (): array => $this->fetchTopPackages($limit),
             ttl: 3600,
             action: self::class,
             endpoint: Endpoints::allPackages()
@@ -59,7 +59,7 @@ final readonly class GetTopPackagesAction
             }
         }
 
-        usort($packages, fn ($a, $b) => $b['downloads'] <=> $a['downloads']);
+        usort($packages, fn (array $a, array $b): int => $b['downloads'] <=> $a['downloads']);
 
         return array_slice($packages, 0, $limit);
     }

@@ -17,11 +17,9 @@ final class PackagistServiceProvider extends ServiceProvider
             'packagist'
         );
 
-        $this->app->singleton(PackagistManager::class, function (): PackagistManager {
-            return new PackagistManager(
-                config('packagist', [])
-            );
-        });
+        $this->app->singleton(PackagistManager::class, fn (): PackagistManager => new PackagistManager(
+            config('packagist', [])
+        ));
     }
 
     public function boot(): void

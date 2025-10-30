@@ -28,7 +28,7 @@ final readonly class GetStatsAction
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->client->get(Endpoints::stats()),
+            fn (): mixed => $this->client->get(Endpoints::stats()),
             action: self::class,
             endpoint: Endpoints::stats()
         );

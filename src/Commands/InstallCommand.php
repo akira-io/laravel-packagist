@@ -24,7 +24,7 @@ final class InstallCommand extends Command
 
         info('Step 1: Publishing configuration file');
         $this->call('vendor:publish', [
-            '--provider' => 'Akira\\Packagist\\Providers\\PackagistServiceProvider',
+            '--provider' => \Akira\Packagist\Providers\PackagistServiceProvider::class,
             '--force' => false,
         ]);
         info('Configuration published to config/packagist.php');
@@ -85,7 +85,7 @@ final class InstallCommand extends Command
         try {
             info('Testing configuration...');
 
-            if (! class_exists('Akira\\Packagist\\Facades\\Packagist')) {
+            if (! class_exists(\Akira\Packagist\Facades\Packagist::class)) {
                 info('Packagist facade not found');
 
                 return;
@@ -131,7 +131,7 @@ final class InstallCommand extends Command
                 default => null,
             };
             info("Opening {$url}");
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             info("Visit: {$url}");
         }
     }

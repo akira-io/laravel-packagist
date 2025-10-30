@@ -19,7 +19,7 @@ final class CacheFactory
     /**
      * @var array<string, class-string<CacheContract>>
      */
-    private const BUILT_IN_STRATEGIES = [
+    private const array BUILT_IN_STRATEGIES = [
         'remember' => RememberCache::class,
         'revalidate' => RevalidateCache::class,
         'forever' => ForeverCache::class,

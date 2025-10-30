@@ -1,0 +1,493 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetAllPackagesAction\:\:handle\(\) should return array\<string, mixed\> but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Actions/GetAllPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''maintainers'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetMaintainersAction.php
+
+		-
+			message: '#^Cannot access offset ''package'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetMaintainersAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetMaintainersAction\:\:handle\(\) should return array\<int, array\<string, mixed\>\> but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Actions/GetMaintainersAction.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Akira\\Packagist\\DTOs\\PackageDTO\:\:fromArray\(\) expects array\<string, mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Actions/GetPackageAction.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetRepositoryAction.php
+
+		-
+			message: '#^Cannot access offset ''repository'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetRepositoryAction.php
+
+		-
+			message: '#^Cannot access offset ''url'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetRepositoryAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetRepositoryAction\:\:extractGithubUrl\(\) has parameter \$package with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Actions/GetRepositoryAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetRepositoryAction\:\:extractGithubUrl\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 2
+			path: src/Actions/GetRepositoryAction.php
+
+		-
+			message: '#^Parameter \#1 \$array of function reset expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Actions/GetRepositoryAction.php
+
+		-
+			message: '#^Parameter \#1 \$data of method Akira\\Packagist\\Actions\\GetRepositoryAction\:\:extractRepositoryInfo\(\) expects array\<string, mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Actions/GetRepositoryAction.php
+
+		-
+			message: '#^Parameter \#1 \$package of method Akira\\Packagist\\Actions\\GetRepositoryAction\:\:extractGithubUrl\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Actions/GetRepositoryAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetStatsAction\:\:handle\(\) should return array\<string, mixed\> but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Actions/GetStatsAction.php
+
+		-
+			message: '#^Parameter \#1 \$string of function md5 expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Actions/GetStatsAction.php
+
+		-
+			message: '#^Cannot access offset ''description'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''downloads'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''package'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''packageNames'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''repository'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''total'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetTopPackagesAction\:\:fetchTopPackages\(\) should return array\<string, mixed\> but returns list\<array\<string, mixed\>\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetTopPackagesAction\:\:handle\(\) should return array\<string, mixed\> but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Part \$packageName \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 1
+			path: src/Actions/GetTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetVendorPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''results'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetVendorPackagesAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetVendorPackagesAction\:\:handle\(\) should return array\<string, mixed\> but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Actions/GetVendorPackagesAction.php
+
+		-
+			message: '#^Parameter \#1 \$string of function strtolower expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Actions/GetVendorPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''description'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetVendorTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''downloads'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetVendorTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: src/Actions/GetVendorTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''repository'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetVendorTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''results'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetVendorTopPackagesAction.php
+
+		-
+			message: '#^Cannot access offset ''url'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/Actions/GetVendorTopPackagesAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetVendorTopPackagesAction\:\:fetchVendorTopPackages\(\) should return array\<string, mixed\> but returns list\<array\<string, mixed\>\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Actions/GetVendorTopPackagesAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\GetVendorTopPackagesAction\:\:handle\(\) should return array\<string, mixed\> but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Actions/GetVendorTopPackagesAction.php
+
+		-
+			message: '#^Parameter \#1 \$string of function strtolower expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Actions/GetVendorTopPackagesAction.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Actions\\SearchPackagesAction\:\:handle\(\) should return array\<string, mixed\> but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Actions/SearchPackagesAction.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Cache\\Repository\:\:tags\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/Cache/BaseCache.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Cache\\BaseCache\:\:resolveStore\(\) should return Illuminate\\Contracts\\Cache\\Repository but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Cache/BaseCache.php
+
+		-
+			message: '#^Parameter \#2 \$callback of method Illuminate\\Contracts\\Cache\\Repository\:\:rememberForever\(\) expects Closure\(\)\: mixed, callable\(\)\: mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Cache/ForeverCache.php
+
+		-
+			message: '#^Unable to resolve the template type TCacheValue in call to method Illuminate\\Contracts\\Cache\\Repository\:\:rememberForever\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/Cache/ForeverCache.php
+
+		-
+			message: '#^Parameter \#3 \$callback of method Illuminate\\Contracts\\Cache\\Repository\:\:remember\(\) expects Closure\(\)\: mixed, callable\(\)\: mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Cache/RememberCache.php
+
+		-
+			message: '#^Unable to resolve the template type TCacheValue in call to method Illuminate\\Contracts\\Cache\\Repository\:\:remember\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/Cache/RememberCache.php
+
+		-
+			message: '#^Parameter \#3 \$callback of method Illuminate\\Contracts\\Cache\\Repository\:\:remember\(\) expects Closure\(\)\: mixed, callable\(\)\: mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Cache/RevalidateCache.php
+
+		-
+			message: '#^Unable to resolve the template type TCacheValue in call to method Illuminate\\Contracts\\Cache\\Repository\:\:remember\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: src/Cache/RevalidateCache.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/Client/PackagistClient.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Contracts\\ClientContract\:\:search\(\) has parameter \$filters with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Contracts/ClientContract.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 3
+			path: src/DTOs/MaintainerDTO.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: src/DTOs/PackageDTO.php
+
+		-
+			message: '#^Cannot access offset ''daily'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/DTOs/PackageDTO.php
+
+		-
+			message: '#^Cannot access offset ''monthly'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/DTOs/PackageDTO.php
+
+		-
+			message: '#^Cannot access offset ''total'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/DTOs/PackageDTO.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 10
+			path: src/DTOs/PackageDTO.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 7
+			path: src/DTOs/PackageDTO.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Akira\\Packagist\\DTOs\\MaintainerDTO\:\:fromArray\(\) expects array\<string, mixed\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTOs/PackageDTO.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method Akira\\Packagist\\DTOs\\VersionDTO\:\:fromArray\(\) expects array\<string, mixed\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTOs/PackageDTO.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 5
+			path: src/DTOs/VersionDTO.php
+
+		-
+			message: '#^Parameter \$authors of class Akira\\Packagist\\DTOs\\VersionDTO constructor expects array\<string, mixed\>, array\<mixed, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTOs/VersionDTO.php
+
+		-
+			message: '#^Parameter \$keywords of class Akira\\Packagist\\DTOs\\VersionDTO constructor expects array\<string, mixed\>, array\<mixed, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DTOs/VersionDTO.php
+
+		-
+			message: '#^Class Akira\\Packagist\\Facades\\Packagist has PHPDoc tag @method for method maintainers\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Facades/Packagist.php
+
+		-
+			message: '#^Class Akira\\Packagist\\Facades\\Packagist has PHPDoc tag @method for method packages\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Facades/Packagist.php
+
+		-
+			message: '#^Class Akira\\Packagist\\Facades\\Packagist has PHPDoc tag @method for method search\(\) parameter \#2 \$filters with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Facades/Packagist.php
+
+		-
+			message: '#^Class Akira\\Packagist\\Facades\\Packagist has PHPDoc tag @method for method search\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Facades/Packagist.php
+
+		-
+			message: '#^Class Akira\\Packagist\\Facades\\Packagist has PHPDoc tag @method for method stats\(\) parameter \#1 \$filters with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Facades/Packagist.php
+
+		-
+			message: '#^Class Akira\\Packagist\\Facades\\Packagist has PHPDoc tag @method for method stats\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Facades/Packagist.php
+
+		-
+			message: '#^Class Akira\\Packagist\\Facades\\Packagist has PHPDoc tag @method for method topPackages\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Facades/Packagist.php
+
+		-
+			message: '#^Class Akira\\Packagist\\Facades\\Packagist has PHPDoc tag @method for method vendorPackages\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Facades/Packagist.php
+
+		-
+			message: '#^Class Akira\\Packagist\\Facades\\Packagist has PHPDoc tag @method for method vendorTopPackages\(\) return type with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Facades/Packagist.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: src/Jobs/RevalidateCacheJob.php
+
+		-
+			message: '#^Cannot access offset ''driver'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/PackagistManager.php
+
+		-
+			message: '#^Cannot access offset ''enabled'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/PackagistManager.php
+
+		-
+			message: '#^Cannot access offset ''queue'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/PackagistManager.php
+
+		-
+			message: '#^Cannot access offset ''revalidate_before_expiry'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/PackagistManager.php
+
+		-
+			message: '#^Cannot access offset ''strategy'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/PackagistManager.php
+
+		-
+			message: '#^Cannot access offset ''tags'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/PackagistManager.php
+
+		-
+			message: '#^Cannot access offset ''ttl'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: src/PackagistManager.php
+
+		-
+			message: '#^Parameter \#1 \$cacheFactory of static method Akira\\Packagist\\Support\\CacheFactory\:\:make\(\) expects Illuminate\\Contracts\\Cache\\Factory, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/PackagistManager.php
+
+		-
+			message: '#^Parameter \#2 \$strategy of static method Akira\\Packagist\\Support\\CacheFactory\:\:make\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/PackagistManager.php
+
+		-
+			message: '#^Parameter \#1 \$config of class Akira\\Packagist\\PackagistManager constructor expects array\<string, mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Providers/PackagistServiceProvider.php
+
+		-
+			message: '#^Method Akira\\Packagist\\Support\\CacheFactory\:\:resolveStrategy\(\) should return class\-string\<Akira\\Packagist\\Contracts\\CacheContract\> but returns class\-string\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Support/CacheFactory.php

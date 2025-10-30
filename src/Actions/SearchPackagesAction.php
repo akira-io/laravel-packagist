@@ -28,7 +28,7 @@ final readonly class SearchPackagesAction
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->client->search($query, $filters),
+            fn (): mixed => $this->client->search($query, $filters),
             action: self::class,
             endpoint: Endpoints::search()
         );

@@ -28,7 +28,7 @@ final readonly class GetMaintainersAction
 
         $data = $this->cache->get(
             $cacheKey,
-            fn () => $this->client->get($endpoint),
+            fn (): mixed => $this->client->get($endpoint),
             action: self::class,
             endpoint: $endpoint
         );

@@ -14,27 +14,15 @@ abstract class BaseCache implements CacheContract
 
     protected Repository $store;
 
-    protected ?string $driver = null;
-
-    /**
-     * @var array<int, string>
-     */
-    protected array $tags = [];
-
-    protected int $ttl = 0;
-
     /**
      * @param  array<int, string>  $tags
      */
     public function __construct(
         protected readonly Factory $cacheFactory,
-        ?string $driver = null,
-        array $tags = [],
-        int $ttl = 0,
+        protected ?string $driver = null,
+        protected array $tags = [],
+        protected int $ttl = 0,
     ) {
-        $this->driver = $driver;
-        $this->tags = $tags;
-        $this->ttl = $ttl;
         $this->store = $this->resolveStore();
     }
 
@@ -49,7 +37,7 @@ abstract class BaseCache implements CacheContract
             ? $this->cacheFactory->store()
             : $this->cacheFactory->store($this->driver);
 
-        if (empty($this->tags)) {
+        if ($this->tags === []) {
             return $repository;
         }
 

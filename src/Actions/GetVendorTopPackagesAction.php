@@ -28,7 +28,7 @@ final readonly class GetVendorTopPackagesAction
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->fetchVendorTopPackages($vendor, $limit),
+            fn (): array => $this->fetchVendorTopPackages($vendor, $limit),
             ttl: 3600,
             action: self::class,
             endpoint: Endpoints::search()
@@ -49,23 +49,19 @@ final readonly class GetVendorTopPackagesAction
 
         // Filter only packages that start with vendor/
         $vendorPrefix = strtolower($vendor).'/';
-        $filtered = array_filter($response['results'], function ($package) use ($vendorPrefix) {
-            return str_starts_with(strtolower($package['name'] ?? ''), $vendorPrefix);
-        });
+        $filtered = array_filter($response['results'], fn (array $package): bool => str_starts_with(strtolower($package['name'] ?? ''), $vendorPrefix));
 
         // Get packages with most downloads
-        $packages = array_map(function ($package) {
-            return [
-                'name' => $package['name'] ?? '',
-                'description' => $package['description'] ?? '',
-                'downloads' => $package['downloads'] ?? 0,
-                'url' => $package['url'] ?? '',
-                'repository' => $package['repository'] ?? '',
-            ];
-        }, $filtered);
+        $packages = array_map(fn (array $package): array => [
+            'name' => $package['name'] ?? '',
+            'description' => $package['description'] ?? '',
+            'downloads' => $package['downloads'] ?? 0,
+            'url' => $package['url'] ?? '',
+            'repository' => $package['repository'] ?? '',
+        ], $filtered);
 
         // Sort by downloads descending
-        usort($packages, fn ($a, $b) => $b['downloads'] <=> $a['downloads']);
+        usort($packages, fn (array $a, array $b): int => $b['downloads'] <=> $a['downloads']);
 
         return array_slice($packages, 0, $limit);
     }

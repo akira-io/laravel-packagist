@@ -24,7 +24,7 @@ final readonly class GetAllPackagesAction
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->client->get(Endpoints::allPackages()),
+            fn (): mixed => $this->client->get(Endpoints::allPackages()),
             action: self::class,
             endpoint: Endpoints::allPackages()
         );

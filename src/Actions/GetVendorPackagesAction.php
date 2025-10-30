@@ -28,7 +28,7 @@ final readonly class GetVendorPackagesAction
 
         return $this->cache->get(
             $cacheKey,
-            fn () => $this->fetchVendorPackages($vendor),
+            fn (): array => $this->fetchVendorPackages($vendor),
             action: self::class,
             endpoint: Endpoints::search()
         );
@@ -48,9 +48,7 @@ final readonly class GetVendorPackagesAction
 
         // Filter only packages that start with vendor/
         $vendorPrefix = strtolower($vendor).'/';
-        $filtered = array_filter($response['results'], function ($package) use ($vendorPrefix) {
-            return str_starts_with(strtolower($package['name'] ?? ''), $vendorPrefix);
-        });
+        $filtered = array_filter($response['results'], fn (array $package): bool => str_starts_with(strtolower($package['name'] ?? ''), $vendorPrefix));
 
         return [
             'results' => array_values($filtered),

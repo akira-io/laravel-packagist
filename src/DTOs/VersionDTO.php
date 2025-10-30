@@ -32,11 +32,7 @@ final readonly class VersionDTO
         // Handle license as string or array
         $license = null;
         if (isset($data['license'])) {
-            if (is_array($data['license'])) {
-                $license = implode(', ', $data['license']);
-            } else {
-                $license = (string) $data['license'];
-            }
+            $license = is_array($data['license']) ? implode(', ', $data['license']) : (string) $data['license'];
         }
 
         return new self(
