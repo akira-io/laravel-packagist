@@ -7,6 +7,7 @@ namespace Akira\Packagist;
 use Akira\Packagist\Actions\GetAllPackagesAction;
 use Akira\Packagist\Actions\GetMaintainersAction;
 use Akira\Packagist\Actions\GetPackageAction;
+use Akira\Packagist\Actions\GetRepositoryAction;
 use Akira\Packagist\Actions\GetStatsAction;
 use Akira\Packagist\Actions\GetTopPackagesAction;
 use Akira\Packagist\Actions\GetVendorPackagesAction;
@@ -131,6 +132,16 @@ final class PackagistManager
     public function vendorTopPackages(string $vendor, int $limit = 9): array
     {
         return new GetVendorTopPackagesAction($this->client, $this->cache)->handle($vendor, $limit);
+    }
+
+    /**
+     * Get repository information for a package including GitHub details.
+     *
+     * @return array<string, mixed>
+     */
+    public function repository(string $package): array
+    {
+        return new GetRepositoryAction($this->client, $this->cache)->handle($package);
     }
 
     public function withClient(ClientContract $client): self
