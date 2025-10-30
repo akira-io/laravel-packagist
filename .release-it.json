@@ -17,7 +17,7 @@
   "npm": false,
   "hooks": {
     "before:init": [
-      "npm run test"
+      "composer test"
     ]
   }
 }
