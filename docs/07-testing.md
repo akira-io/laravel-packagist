@@ -571,7 +571,7 @@ test('revalidate cache job handles exceptions gracefully', function () {
 
 ## Testing Best Practices
 
-###  DO
+### DO
 
 ```php
 // DO: Use descriptive test names
@@ -597,7 +597,7 @@ class MockClient implements ClientContract { /* ... */ }
 Bus::assertDispatched(RevalidateCacheJob::class);
 ```
 
-###  DON'T
+### DON'T
 
 ```php
 // DON'T: Make real API calls in tests

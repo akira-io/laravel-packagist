@@ -675,7 +675,7 @@ API Load:
 
 ## Best Practices
 
-###  DO
+### DO
 
 ```php
 // DO: Use low priority queue
@@ -695,7 +695,7 @@ php artisan queue:work --daemon
 'timeout' => 300,  // 5 minutes
 ```
 
-###  DON'T
+### DON'T
 
 ```php
 // DON'T: Set revalidate_before_expiry > ttl

@@ -150,7 +150,7 @@ For development/testing without external dependencies:
 QUEUE_CONNECTION=sync
 ```
 
-️ Note: With sync, jobs execute immediately instead of background. Auto-revalidation won't actually happen in background.
+Note: With sync, jobs execute immediately instead of background. Auto-revalidation won't actually happen in background.
 
 ### Start Queue Worker
 

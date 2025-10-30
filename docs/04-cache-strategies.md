@@ -60,17 +60,17 @@ use Akira\Packagist\Cache\RevalidateCache;
 
 ### Advantages
 
- **Zero Latency** - Users never see slow API calls
- **Fresh Data** - Cache always up-to-date when accessed
- **Reduced API Load** - Refresh in background, not on user request
- **Better UX** - Consistent fast response times
- **Production Ready** - Battle-tested pattern
+- **Zero Latency** - Users never see slow API calls
+- **Fresh Data** - Cache always up-to-date when accessed
+- **Reduced API Load** - Refresh in background, not on user request
+- **Better UX** - Consistent fast response times
+- **Production Ready** - Battle-tested pattern
 
 ### Disadvantages
 
- Requires Laravel Queue configured
- Slightly more complex setup
- Background job failures are logged but silent
+- Requires Laravel Queue configured
+- Slightly more complex setup
+- Background job failures are logged but silent
 
 ### When to Use
 
@@ -194,17 +194,17 @@ use Akira\Packagist\Cache\RememberCache;
 
 ### Advantages
 
- Simple, straightforward caching
- Doesn't require queue configured
- Good for non-critical data
- Explicit expiry control
- Lower memory overhead (shorter retention)
+- Simple, straightforward caching
+- Doesn't require queue configured
+- Good for non-critical data
+- Explicit expiry control
+- Lower memory overhead (shorter retention)
 
 ### Disadvantages
 
- Cache misses cause latency spikes
- After expiry, first request pays API cost
- Not ideal for frequently-accessed data
+- Cache misses cause latency spikes
+- After expiry, first request pays API cost
+- Not ideal for frequently-accessed data
 
 ### When to Use
 
@@ -303,17 +303,17 @@ use Akira\Packagist\Cache\ForeverCache;
 
 ### Advantages
 
- Perfect for static/rarely-changing data
- Best performance (cache always hit)
- Control when to refresh via flush
- Simplest to understand
+- Perfect for static/rarely-changing data
+- Best performance (cache always hit)
+- Control when to refresh via flush
+- Simplest to understand
 
 ### Disadvantages
 
- Data can become stale if not refreshed
- Requires manual cache management
- Risk of serving outdated information
- Need explicit cleanup strategy
+- Data can become stale if not refreshed
+- Requires manual cache management
+- Risk of serving outdated information
+- Need explicit cleanup strategy
 
 ### When to Use
 
@@ -469,19 +469,19 @@ use Akira\Packagist\Cache\NoneCache;
 
 ### Advantages
 
- Always fresh data
- No cache invalidation issues
- Perfect for development
- Easiest to understand
- No memory overhead
+- Always fresh data
+- No cache invalidation issues
+- Perfect for development
+- Easiest to understand
+- No memory overhead
 
 ### Disadvantages
 
- High API load
- Slow responses (~300ms every time)
- Wastes bandwidth
- Not production-ready
- Strain on Packagist API
+- High API load
+- Slow responses (~300ms every time)
+- Wastes bandwidth
+- Not production-ready
+- Strain on Packagist API
 
 ### When to Use
 

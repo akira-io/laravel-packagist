@@ -260,7 +260,7 @@ Input validation:
 
 ---
 
-## 🆘 Getting Help
+## Getting Help
 
 ### Common Questions
 - "How do I cache data?" → [Cache Strategies](./04-cache-strategies.md)
