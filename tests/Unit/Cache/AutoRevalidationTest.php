@@ -20,7 +20,7 @@ describe('AutoRevalidation', function (): void {
     });
 
     test('can enable auto revalidation', function (): void {
-        $stub = new AutoRevalidationStub();
+        $stub = new AutoRevalidationStub;
 
         $result = $stub->enableAutoRevalidation();
 
@@ -29,7 +29,7 @@ describe('AutoRevalidation', function (): void {
     });
 
     test('can disable auto revalidation', function (): void {
-        $stub = new AutoRevalidationStub();
+        $stub = new AutoRevalidationStub;
         $stub->enableAutoRevalidation();
 
         $stub->disableAutoRevalidation();
