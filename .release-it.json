@@ -1,0 +1,23 @@
+{
+  "git": {
+    "requireBranch": "1.x",
+    "requireCleanWorkingDir": true,
+    "tagName": "v${version}"
+  },
+  "github": {
+    "release": true,
+    "releaseName": "v${version}"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "infile": "CHANGELOG.md"
+    }
+  },
+  "npm": false,
+  "hooks": {
+    "before:init": [
+      "npm run test"
+    ]
+  }
+}

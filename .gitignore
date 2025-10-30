@@ -12,6 +12,7 @@
 *.log
 .DS_Store
 composer.lock
+package-lock.json
 *.swp
 *.swo
 .php-cs-fixer.cache
